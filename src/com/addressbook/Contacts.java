@@ -1,5 +1,7 @@
 package com.addressbook;
 
+import java.util.zip.ZipEntry;
+
 public class Contacts {
     private String firstName;
     private String lastName;
@@ -7,11 +9,11 @@ public class Contacts {
     private String city;
     private String state;
     private long phoneNumber;
-    private String zip;
+    private long zip;
     private String email;
 
 
-    public Contacts(String firstName, String lastName, String address, String city, String state, long phoneNumber, String zip, String email) {
+    public Contacts(String firstName, String lastName, String address, String city, String state,  long phoneNumber, long zip, String email  ) {
 
         //constructor
         this.firstName = firstName;
@@ -23,6 +25,8 @@ public class Contacts {
         this.zip = zip;
         this.email = email;
     }
+
+    public Contacts() {}
 
     // Getters and setters to return and set or update the value
     public String getFirstName() {
@@ -73,11 +77,11 @@ public class Contacts {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getZip() {
+    public long getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(long zip) {
         this.zip = zip;
     }
 
@@ -100,7 +104,10 @@ public class Contacts {
                 ", state='" + state + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", zip=" + zip +
-                ",email='" + email + '\'' +
+                ", email='" + email  +  '\'' +
+                +
+                        +
+                                +
                 '}';
     }
 }
