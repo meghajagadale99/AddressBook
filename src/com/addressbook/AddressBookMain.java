@@ -37,7 +37,7 @@ public class AddressBookMain {
         contactItems.address = sc.next();
 
 
-        System.out.println("Enter city : ");
+        System.out.println("Enter city name: ");
         contactItems.city = sc.next();
 
         System.out.println("Enter state : ");
@@ -55,7 +55,6 @@ public class AddressBookMain {
         contactList.add(contactItems);
 
     }
-
 
     public void editContact()
     {
@@ -136,7 +135,6 @@ public class AddressBookMain {
             }
         }
     }
-
 
     public void deletingContact(ArrayList<Contacts> contactList)
     {
