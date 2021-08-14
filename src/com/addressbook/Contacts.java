@@ -10,7 +10,6 @@ public class Contacts {
     long phoneNumber;
     String email;
 
-    //returning person details given by user
     public String toString() {
         return "ContactItems [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
                 + city + ", state=" + state + ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", email=" + email
