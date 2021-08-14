@@ -9,13 +9,13 @@ public class AddressBookMain {
 
     public static void main(String[] args)
     {
-
-        System.out.println("Welcome to the Address book program"); // Welcome statement
+        // Welcome message
+        System.out.println("Welcome to the Address book program");
         AddressBookMain addressBook = new AddressBookMain();
-        addressBook.addContactList();
+        addressBook.addingContactList();
     }
 
-    public void display(ArrayList<Contacts> contactList)//Display Address book
+    public void display(ArrayList<Contacts> contactList)
     {
         for (Contacts contact : contactList)
         {
@@ -55,6 +55,7 @@ public class AddressBookMain {
         contactList.add(contactItems);
 
     }
+
 
     public void editContact()
     {
@@ -137,12 +138,20 @@ public class AddressBookMain {
     }
 
 
-    public void addContactList() {
+    public void deletingContact(ArrayList<Contacts> contactList)
+    {
+        System.out.println("Enter the first name of the contact you wish to delete");
+        String delete = sc.next();
+        contactList.removeIf(contact -> contact.firstName.equals(delete));
+    }
+
+    public void addingContactList() {
         while (true) {
             System.out.println("Press 0 - Display all contacts");
             System.out.println("Press 1 - Add contact");
             System.out.println("Press 2 - Edit contact");
-            System.out.println("Press 6 - Exit");
+            System.out.println("Press 3 - Delete contact");
+            System.out.println("Press 4 - Exit");
             int option = sc.nextInt();
             sc.nextLine();
 
@@ -150,8 +159,9 @@ public class AddressBookMain {
                 case 0 -> display(contactList);
                 case 1 -> addContact(null, contactList);
                 case 2 -> editContact();
+                case 3 -> deletingContact(contactList);
             }
-            if (option == 6) {
+            if (option == 4) {
                 break;
             }
         }
