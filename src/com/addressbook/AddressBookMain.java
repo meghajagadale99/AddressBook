@@ -4,47 +4,44 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBookMain {
-    static ArrayList<Contacts> arrayArrayList = new ArrayList<Contacts>();
+    ArrayList<Contacts> arrayArrayList = new ArrayList<Contacts>();
     static Scanner sc = new Scanner(System.in);
 
     public void addDetails() {
-        Contacts datails = new Contacts();
-
-        System.out.println("Enter the First Name");
-        datails.setFirstName(sc.nextLine());
-        System.out.println("Enter the Last Name");
-        datails.setLastName(sc.nextLine());
-        System.out.println("Enter the Address");
-        datails.setAddress(sc.nextLine());
-        System.out.println("Enter the City");
-        datails.setCity(sc.nextLine());
-        System.out.println("Enter the State");
-        datails.setState(sc.nextLine());
-        System.out.println("Enter the Email");
-        datails.setEmail(sc.nextLine());
-        System.out.println("Enter the Phone Number");
-        datails.setPhoneNumber(sc.nextLong());
-        System.out.println("Enter the Zip");
-        datails.setZip(sc.nextLong());
-        arrayArrayList.add(datails);
+        Contacts details = new Contacts();
+        System.out.println("Enter the first name");
+        details.setFirstName(sc.nextLine());
+        System.out.println("Enter the last name");
+        details.setLastName(sc.nextLine());
+        System.out.println("Enter the address");
+        details.setAddress(sc.nextLine());
+        System.out.println("Enter the city");
+        details.setCity(sc.nextLine());
+        System.out.println("Enter the state");
+        details.setState(sc.nextLine());
+        System.out.println("Enter the email");
+        details.setEmail(sc.nextLine());
+        System.out.println("Enter the zip code");
+        details.setZip(sc.nextInt());
+        System.out.println("Enter the phone number");
+        details.setPhoneNumber(sc.nextLong());
+        arrayArrayList.add(details);
         System.out.println(arrayArrayList);
-
     }
-
 
     public void editDetails() {
         System.out.println("Confirm your first name to edit details: ");
         String confirmName = sc.next();
 
         for (int i = 0; i < arrayArrayList.size(); i++) {
-            if (arrayArrayList.get(i).equals(confirmName)) {
+            if (arrayArrayList.get(i).getFirstName().equals(confirmName)) {
                 System.out.println("Select form below to change: ");
                 System.out.println("\n1.First Name\n2.Last Name\n3.Address\n4.city\n5.State\n6.Zip\n7.Mobile number\n8.Email");
                 int edit = sc.nextInt();
 
                 switch (edit) {
                     case 1:
-                        System.out.println("Enter First name");
+                        System.out.println("Enter first name");
                         arrayArrayList.get(i).setFirstName(sc.next());
                         break;
                     case 2:
@@ -58,7 +55,6 @@ public class AddressBookMain {
                     case 4:
                         System.out.println("Enter City");
                         arrayArrayList.get(i).setCity(sc.next());
-                        break;
                     case 5:
                         System.out.println("Enter State");
                         arrayArrayList.get(i).setState(sc.next());
@@ -84,21 +80,30 @@ public class AddressBookMain {
 
     }
 
-    public void display() {
-        System.out.println(arrayArrayList);
+    public void arrayArrayList() {
+        System.out.println("Confirm the first name of the person to delete contact");
+        String confirmName = sc.next();
+        for (int i = 0; i < arrayArrayList.size(); i++) {
 
+            if (arrayArrayList.get(i).getFirstName().equals(confirmName)) {
+                arrayArrayList.remove(i);
+                System.out.println("List After removing"+arrayArrayList);
+
+            } else {
+                System.out.println("Enter valid first name");
+            }
+        }
     }
 
+
     public static void main(String[] args) {
-        System.out.println("Welcome to Address Book Program");
         AddressBookMain details = new AddressBookMain();
         details.addDetails();
-        details.display();
         int i = 0;
         while (i == 0) {
             System.out.println("Welcome to Address Book Program");
             System.out.println("What do you want to do: ");
-            System.out.println("1.Add details.\n2.Edit details.");
+            System.out.println("1.Add details.\n2.Edit details.\n3.Delete Details.");
             int choose = sc.nextInt();
             switch (choose) {
                 case 1:
@@ -107,13 +112,15 @@ public class AddressBookMain {
                 case 2:
                     details.editDetails();
                     break;
+                case 3:
+                    details.arrayArrayList();
+                    break;
                 default:
                     i = 1;
                     System.out.println("Wrong option");
                     break;
             }
         }
-
 
     }
 }

@@ -99,23 +99,13 @@ public class Contacts {
         return "Contacts{" +
 
                 "firstName='" + firstName + '\'' +
-
                 ", lastName='" + lastName + '\'' +
-
                 ", address='" + address + '\'' +
-
                 ", city='" + city + '\'' +
-
                 ", state='" + state + '\'' +
-
                 ", phoneNumber=" + phoneNumber +
-
                 ", zip=" + zip +
-
                 ", email='" + email  +  '\'' +
-                +
-                        +
-                                +
                 '}';
     }
 }
