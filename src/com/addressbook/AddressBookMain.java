@@ -29,6 +29,10 @@ public class AddressBookMain {
         System.out.println(arrayArrayList);
     }
 
+    public void display() {
+        System.out.println(arrayArrayList);
+    }
+
     public void editDetails() {
         System.out.println("Confirm your first name to edit details: ");
         String confirmName = sc.next();
@@ -87,7 +91,7 @@ public class AddressBookMain {
 
             if (arrayArrayList.get(i).getFirstName().equals(confirmName)) {
                 arrayArrayList.remove(i);
-                System.out.println("List After removing"+arrayArrayList);
+                System.out.println("List After removing" + arrayArrayList);
 
             } else {
                 System.out.println("Enter valid first name");
@@ -98,12 +102,14 @@ public class AddressBookMain {
 
     public static void main(String[] args) {
         AddressBookMain details = new AddressBookMain();
-        details.addDetails();
-        int i = 0;
-        while (i == 0) {
-            System.out.println("Welcome to Address Book Program");
-            System.out.println("What do you want to do: ");
-            System.out.println("1.Add details.\n2.Edit details.\n3.Delete Details.");
+        int input;
+        int ans;
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.println("1.Add a contact");
+            System.out.println("2.Edit a contact");
+            System.out.println("3.Delete a contact");
+            System.out.println("4.Display a contact");
             int choose = sc.nextInt();
             switch (choose) {
                 case 1:
@@ -115,12 +121,15 @@ public class AddressBookMain {
                 case 3:
                     details.arrayArrayList();
                     break;
+                case 4:
+                    details.display();
                 default:
-                    i = 1;
                     System.out.println("Wrong option");
                     break;
             }
-        }
+            System.out.println("Do you want to continue?(0/1)");
+            ans = scanner.nextInt();
+        } while (ans == 1);
 
     }
 }

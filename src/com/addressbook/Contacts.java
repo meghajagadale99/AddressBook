@@ -13,7 +13,7 @@ public class Contacts {
     private String email;
 
 
-    public Contacts(String firstName, String lastName, String address, String city, String state,  long phoneNumber, long zip, String email  ) {
+    public Contacts(String firstName, String lastName, String address, String city, String state, long phoneNumber, long zip, String email) {
 
         //constructor
         this.firstName = firstName;
@@ -26,7 +26,8 @@ public class Contacts {
         this.email = email;
     }
 
-    public Contacts() {}
+    public Contacts() {
+    }
 
     // Getters and setters to return and set or update the value
     public String getFirstName() {
@@ -89,7 +90,7 @@ public class Contacts {
         return email;
     }
 
-    public  void  setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -105,7 +106,7 @@ public class Contacts {
                 ", state='" + state + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", zip=" + zip +
-                ", email='" + email  +  '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
