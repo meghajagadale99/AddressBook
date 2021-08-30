@@ -8,7 +8,7 @@ public class SearchSortService {
     public static void searchByCity(List<Person> person) {
         String search;
         List<Person> matches = new ArrayList<>();
-        System.out.println("Enter First Name to search : ");
+        System.out.println("Enter Phone Number to search : ");
         search = InputUtil.getStringValue();
         int flag = 0;
         for (Person p : person) {
@@ -31,7 +31,7 @@ public class SearchSortService {
         String search;
         int flag = 0;
         List<Person> matches = new ArrayList<>();
-        System.out.println("Enter First Name to search : ");
+        System.out.println("Enter Phone Number to search : ");
         search = InputUtil.getStringValue();
         for (Person p : person) {
             if (p.getState().equalsIgnoreCase(search)) {
