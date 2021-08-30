@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 public interface IAddressBookService {
+
     void addRecord();
 
     void editRecord() throws AddressBookException;

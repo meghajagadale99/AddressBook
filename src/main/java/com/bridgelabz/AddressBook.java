@@ -3,7 +3,7 @@ package com.bridgelabz;
 public class AddressBook {
     public static void main(String[] args) throws AddressBookException {
         int i = 0;
-        final AddressBookService help = new AddressBookService();
+        final Helper help = new Helper();
         while (i == 0) {
             System.out.println("--- Address Book Management ---\n");
             System.out.println("\t--MENU--");
