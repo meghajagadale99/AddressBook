@@ -125,7 +125,7 @@ public class Helper {
         int flag=0;
         for (Person p: PERSON)
         {
-            if (p.getFname().equals(fname))
+            if (p.getFirstName().equals(fname))
             {
                 flag=1;
                 break;
