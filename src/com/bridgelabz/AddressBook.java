@@ -100,8 +100,8 @@ public class AddressBook {
     }
 
     public void add() {
-        System.out.println("Add 2 new Contact to ADDRESS BOOK:------");
-        for (int i = 0; i < 2; i++) {
+        System.out.println("Add 1 new Contact to ADDRESS BOOK:------");
+        for (int i = 0; i < 1; i++) {
             AddressBook person = new AddressBook();
             System.out.println("First Name: ");
             String firstName = scanner.next();
@@ -183,5 +183,17 @@ public class AddressBook {
 
     }
 
+    public void delete() {
+        System.out.println("Enter your First name:");
+        String fname = scanner.next();
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()) {
+            AddressBook person = (AddressBook) iterator.next();
+
+            if (fname.equals(person.getFirstName())) {
+                list.remove(person);
+            }
+        }
+    }
 
 }
