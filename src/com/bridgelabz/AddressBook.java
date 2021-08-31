@@ -98,10 +98,11 @@ public class AddressBook {
         return "Contact [firstName=" + firstName + ", lastName=" + lastName + ", city=" + city + ", state=" + state
                 + ", email=" + email + ", zip=" + zip + ", phoneNo=" + phoneNo + "]";
     }
-
     public void add() {
-        System.out.println("Add 1 new Contact to ADDRESS BOOK:------");
-        for (int i = 0; i < 1; i++) {
+        System.out.println("Add new Contact to ADDRESS BOOK:------");
+        System.out.println("enter the number of people you want to add in addressbook");
+        int numberOfUser = scanner.nextInt();
+        for (int i = 0; i < 2; i++) {
             AddressBook person = new AddressBook();
             System.out.println("First Name: ");
             String firstName = scanner.next();
@@ -182,7 +183,6 @@ public class AddressBook {
         }
 
     }
-
     public void delete() {
         System.out.println("Enter your First name:");
         String fname = scanner.next();
@@ -195,5 +195,6 @@ public class AddressBook {
             }
         }
     }
+
 
 }
