@@ -5,105 +5,30 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
-    String firstName;
-    String lastName;
-    String city;
-    String state;
-    String email;
-    int zip;
-    int phoneNo;
     Scanner scanner = new Scanner(System.in);
-    List list = new ArrayList();
+    List<ContactPerson> list = new ArrayList();
+    AddressBookManager addressBookManager = new AddressBookManager();
 
-    public AddressBook(String firstName, String lastName, String city, String state, String email, int zip, int phoneNo) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
-        this.state = state;
-        this.email = email;
-        this.zip = zip;
-        this.phoneNo = phoneNo;
+    public void createAddressbook() {
+        addressBookManager.CreateAddressbook();
     }
+    public void getContacts() {
+        System.out.println("Available adressbooks are" + addressBookManager.addressbook.keySet());
+        System.out.println("from which addressbook you want to find details?? ");
+        String addressBookName = scanner.next();
+        addressBookManager.getContactByAddressBook(addressBookName);
+    }
+    public List<ContactPerson> add() {
+        System.out.println("Add new Contact to ADDRESS BOOK:--");
+        System.out.println("Available adressbooks are" + addressBookManager.addressbook.keySet());
 
-    public AddressBook() {
+        System.out.println("Enter the AddressBook Name: ");
+        String addressBookName = scanner.next();
+        System.out.println("enter the number of people you want to add in addressbook: ");
+        int numberOfUser = Integer.valueOf(scanner.next());
 
-    }
-    public void Display() {
-        System.out.println("First Name: " + this.firstName);
-        System.out.println("Last Name: " + this.lastName);
-        System.out.println("City: " + this.city);
-        System.out.println("State: " + this.state);
-        System.out.println("Zip: " + this.zip);
-        System.out.println("Phone Number: " + this.phoneNo);
-        System.out.println("EmailId: " + this.email);
-    }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public int getZip() {
-        return zip;
-    }
-
-    public int getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setZip(int zip) {
-        this.zip = zip;
-    }
-
-    public void setPhoneNo(int phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    @Override
-    public String toString() {
-        return "Contact [firstName=" + firstName + ", lastName=" + lastName + ", city=" + city + ", state=" + state
-                + ", email=" + email + ", zip=" + zip + ", phoneNo=" + phoneNo + "]";
-    }
-    public void add() {
-        System.out.println("Add new Contact to ADDRESS BOOK:------");
-        System.out.println("enter the number of people you want to add in addressbook");
-        int numberOfUser = scanner.nextInt();
-        for (int i = 0; i < 2; i++) {
-            AddressBook person = new AddressBook();
+        for (int i = 0; i < numberOfUser; i++) {
+            ContactPerson person = new ContactPerson();
             System.out.println("First Name: ");
             String firstName = scanner.next();
             person.setFirstName(firstName);
@@ -132,11 +57,17 @@ public class AddressBook {
             int phoneNo = scanner.nextInt();
             person.setPhoneNo(phoneNo);
 
+            addressBookManager.addContact(addressBookName, person);
             list.add(person);
         }
-        System.out.println(list);
+        return list;
     }
     public void edit() {
+        System.out.println("Add new Contact to ADDRESS BOOK:--");
+        System.out.println("Available adressbooks are" + addressBookManager.addressbook.keySet());
+        System.out.println("Enter the AddressBook Name: ");
+        String addressBookName = scanner.next();
+
         System.out.println("Enter your First name:");
         String fname = scanner.next();
         List list = this.list;
@@ -144,7 +75,7 @@ public class AddressBook {
         Iterator iterator = list.iterator();
 
         while (iterator.hasNext()) {
-            AddressBook person = (AddressBook) iterator.next();
+            ContactPerson person = (ContactPerson) iterator.next();
 
             if (fname.equals(person.getFirstName())) {
 
@@ -178,7 +109,6 @@ public class AddressBook {
                         System.out.println("new state: " + person.state);
                         break;
                 }
-
             }
         }
 
@@ -188,13 +118,12 @@ public class AddressBook {
         String fname = scanner.next();
         Iterator iterator = list.iterator();
         while (iterator.hasNext()) {
-            AddressBook person = (AddressBook) iterator.next();
+            ContactPerson person = (ContactPerson) iterator.next();
 
             if (fname.equals(person.getFirstName())) {
                 list.remove(person);
             }
         }
     }
-
 
 }
