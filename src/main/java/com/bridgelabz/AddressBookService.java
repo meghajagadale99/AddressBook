@@ -184,7 +184,7 @@ public class AddressBookService implements IAddressBookService {
      * @Param FirstName
      */
     public boolean checkExists(String firstName) {
-        int flag = personList.stream().anyMatch(p -> p.getFirstName().equalsIgnoreCase(firstName)) ? 1 : 0;
+        int flag = personList.stream().anyMatch(p -> p.getFname().equalsIgnoreCase(firstName)) ? 1 : 0;
         return flag == 1;
     }
 

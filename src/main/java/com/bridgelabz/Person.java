@@ -1,17 +1,12 @@
 package com.bridgelabz;
+import java.util.Comparator;
 public class Person {
-    private final String firstName;
-    private final String lastName;
-    private String address;
-    private String city;
-    private String state;
-    private String phone;
-    private String zip;
+    private String fname, lname, address, city, state, phone,zip;
 
-    /*Constructor to initialize fields*/
-    public Person(String firstName, String lastName, String address, String city, String state, String phone, String zip) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Person(String fname, String lname, String address, String city, String state, String phone, String zip)
+    {
+        this.fname = fname;
+        this.lname = lname;
         this.address = address;
         this.city = city;
         this.state = state;
@@ -19,54 +14,99 @@ public class Person {
         this.zip = zip;
     }
 
-    /*Getter & Setter Methods*/
-    public String getFirstName() {
-        return firstName;
+    public String getFname()
+    {
+        return fname;
     }
 
-    public void setAddress(String address) {
+    public void setFname(String fname)
+    {
+        this.fname = fname;
+    }
+
+    public String getLname()
+    {
+        return lname;
+    }
+
+    public void setLname(String lname)
+    {
+        this.lname = lname;
+    }
+
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(String address)
+    {
         this.address = address;
     }
 
-    public String getCity() {
+    public String getCity()
+    {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city)
+    {
         this.city = city;
     }
 
-    public String getState() {
+    public String getState()
+    {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(String state)
+    {
         this.state = state;
     }
 
-    public void setPhone(String phone) {
+    public String getPhone()
+    {
+        return phone;
+    }
+
+    public void setPhone(String phone)
+    {
         this.phone = phone;
     }
 
-    public String getZip() {
+    public String getZip()
+    {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(String zip)
+    {
         this.zip = zip;
     }
 
+    // Sort By First Name
+    public static Comparator<Person> firstNameSorting = new Comparator<Person>() {
+        @Override
+        public int compare(Person p1, Person p2)
+        {
+            String fname1 = p1.getFname();
+            String fname2 = p2.getFname();
+            // ascending order
+            return fname1.compareTo(fname2);
+        }
+    };
     @Override
     public String toString() {
         return "Person{" +
-                "First Name ='" + firstName + '\'' +
-                ", Last Name ='" + lastName + '\'' +
-                ", Address ='" + address + '\'' +
-                ", City ='" + city + '\'' +
-                ", State ='" + state + '\'' +
-                ", Phone ='" + phone + '\'' +
-                ", Zip ='" + zip + '\'' +
+                "fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", phone='" + phone + '\'' +
+                ", zip='" + zip + '\'' +
                 '}';
     }
 }
+
 
