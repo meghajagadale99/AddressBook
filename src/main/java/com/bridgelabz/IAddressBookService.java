@@ -9,6 +9,8 @@ public interface IAddressBookService {
 
     void deleteRecord() throws AddressBookException;
 
+    void sortRecords();
+
     void searchInRecords();
 
     boolean checkExists(String firstName);

@@ -1,5 +1,8 @@
 package com.bridgelabz;
-
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +10,9 @@ import java.util.List;
  * Add, Display, Edit, Delete, Search, Sort
  */
 public class AddressBookService implements IAddressBookService {
-    List<Person> personList = new ArrayList<>();
+    private final List<Person> personList = new ArrayList<>();
 
+    JSONArray personArray = new JSONArray();
     /*Method Search the Person By City
      * @Param Person List
      */
@@ -59,6 +63,38 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
+    /*Method Sort the Records By Name
+     * @Param Person List
+     */
+    public static void sortByName(List<Person> person) {
+        person.sort(Person.firstNameSorting);
+        person.forEach(System.out::println);
+    }
+
+    /*Method Sort the Records By City
+     * @Param Person List
+     */
+    public static void sortByCity(List<Person> person) {
+        person.sort(Person.citySorting);
+        person.forEach(System.out::println);
+    }
+
+    /*Method Sort the Records By State
+     * @Param Person List
+     */
+    public static void sortByState(List<Person> person) {
+        person.sort(Person.stateSorting);
+        person.forEach(System.out::println);
+    }
+
+    /*Method Sort the Records By Zip
+     * @Param Person List
+     */
+    public static void sortByZip(List<Person> person) {
+        person.sort(Person.zipSorting);
+        person.forEach(System.out::println);
+    }
+
     /*Method Add Person Record*/
     public void addRecord() {
         int i = 0;
@@ -85,8 +121,23 @@ public class AddressBookService implements IAddressBookService {
         zip = InputUtil.getStringValue();
         System.out.print("Enter state : ");
         state = InputUtil.getStringValue();
+        Person person = new Person(firstName, lastName, address, city, state, phone, zip);
+        personList.add(person);
+        this.writeToJSONFile(person);
+    }
 
-        personList.add(new Person(firstName, lastName, address, city, state, phone, zip));
+    private void writeToJSONFile(Person person) {
+        JSONObject personDetails = new JSONObject();
+        personDetails.put("first Name",person.getFirstName());
+        personDetails.put("last Name",person.getLastName());
+        personDetails.put("Phone",person.getPhone());
+        personArray.add(personDetails);
+        try (FileWriter file = new FileWriter("PersonDetails.json")) {
+            file.write(personArray.toJSONString());
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*Method to Display Person Records*/
@@ -96,7 +147,6 @@ public class AddressBookService implements IAddressBookService {
         } else {
             personList.forEach(System.out::println);
         }
-
     }
 
     /*Method to Edit Person Record*/
@@ -179,12 +229,40 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
+    /*Method for Sort Menu*/
+    public void sortRecords() {
+        System.out.println("Sort By...\n"
+                + "1: First Name\n"
+                + "2: City\n"
+                + "3: State\n"
+                + "4: Zip Code\n"
+                + "5: Back");
+        int choice = InputUtil.getIntValue();
+        switch (choice) {
+            case 1:
+                sortByName(personList);
+                break;
+            case 2:
+                sortByCity(personList);
+                break;
+            case 3:
+                sortByState(personList);
+                break;
+            case 4:
+                sortByZip(personList);
+                break;
+            case 5:
+                return;
+            default:
+                System.out.println("Please Enter Valid Option...");
+        }
+    }
 
     /*Method to Check Duplication of First Name
      * @Param FirstName
      */
     public boolean checkExists(String firstName) {
-        int flag = personList.stream().anyMatch(p -> p.getFname().equalsIgnoreCase(firstName)) ? 1 : 0;
+        int flag = personList.stream().anyMatch(p -> p.getFirstName().equalsIgnoreCase(firstName)) ? 1 : 0;
         return flag == 1;
     }
 

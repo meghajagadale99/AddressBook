@@ -11,4 +11,5 @@ public class AddressBookException extends Exception {
     public enum exceptionType {
         ENTERED_WRONG_ID
     }
+
 }
