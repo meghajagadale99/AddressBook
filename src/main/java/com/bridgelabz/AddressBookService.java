@@ -5,14 +5,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.LinkedList;
 /*Helper Class to Perform AddressBook Operations
  * Add, Display, Edit, Delete, Search, Sort
  */
 public class AddressBookService implements IAddressBookService {
-    private final List<Person> personList = new ArrayList<>();
-
-    JSONArray personArray = new JSONArray();
     /*Method Search the Person By City
      * @Param Person List
      */
@@ -63,50 +60,25 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
-    /*Method Sort the Records By Name
+    /*Method Sort the Records
      * @Param Person List
      */
-    public static void sortByName(List<Person> person) {
-        person.sort(Person.firstNameSorting);
-        person.forEach(System.out::println);
-    }
-
-    /*Method Sort the Records By City
-     * @Param Person List
-     */
-    public static void sortByCity(List<Person> person) {
-        person.sort(Person.citySorting);
-        person.forEach(System.out::println);
-    }
-
-    /*Method Sort the Records By State
-     * @Param Person List
-     */
-    public static void sortByState(List<Person> person) {
-        person.sort(Person.stateSorting);
-        person.forEach(System.out::println);
-    }
-
-    /*Method Sort the Records By Zip
-     * @Param Person List
-     */
-    public static void sortByZip(List<Person> person) {
-        person.sort(Person.zipSorting);
-        person.forEach(System.out::println);
+    public static void sortData(List<Person> person, sortOptions sortOptions) {
+        person.stream().sorted(sortOptions.comparator).forEach(System.out::println);
     }
 
     /*Method Add Person Record*/
-    public void addRecord() {
-        int i = 0;
+    public LinkedList<Person> addRecord(LinkedList<Person> personList) {
+        int flag = 0;
         String firstName = null;
         final String lastName, address, city, state, phone, zip;
-        while (i == 0) {
+        while (flag == 0) {
             System.out.print("Enter First Name : ");
             firstName = InputUtil.getStringValue();
-            if (checkExists(firstName)) {
+            if (checkExists(firstName, personList)) {
                 System.out.println("Person Name Already Exists!!\nPlease enter different name...");
             } else {
-                i = 1;
+                flag = 1;
             }
         }
         System.out.print("Enter Last Name : ");
@@ -121,49 +93,35 @@ public class AddressBookService implements IAddressBookService {
         zip = InputUtil.getStringValue();
         System.out.print("Enter state : ");
         state = InputUtil.getStringValue();
-        Person person = new Person(firstName, lastName, address, city, state, phone, zip);
+        Person person = new Person(firstName, lastName, address, city, state, zip, phone);
         personList.add(person);
-        this.writeToJSONFile(person);
-    }
-
-    private void writeToJSONFile(Person person) {
-        JSONObject personDetails = new JSONObject();
-        personDetails.put("first Name",person.getFirstName());
-        personDetails.put("last Name",person.getLastName());
-        personDetails.put("Phone",person.getPhone());
-        personArray.add(personDetails);
-        try (FileWriter file = new FileWriter("PersonDetails.json")) {
-            file.write(personArray.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return personList;
     }
 
     /*Method to Display Person Records*/
-    public void displayRecord() {
-        if (personList.isEmpty()) {
+    public void displayRecord(LinkedList<Person> person) {
+        if (person.isEmpty()) {
             System.out.println("No Records To Display!!!");
         } else {
-            personList.forEach(System.out::println);
+            person.forEach(System.out::println);
         }
     }
 
     /*Method to Edit Person Record*/
-    public void editRecord() throws AddressBookException {
-        int id, i = 0;
+    public LinkedList<Person> editRecord(LinkedList<Person> person) throws AddressBookException {
+        int id, flag = 0;
         String address, city, state, phone, zip;
         try {
-            if (personList.isEmpty()) {
+            if (person.isEmpty()) {
                 System.out.println("No Records To Edit!!!");
             } else {
-                for (Person person : personList) {
-                    System.out.println("ID: #" + personList.indexOf(person) + " : " + person);
+                for (Person person1 : person) {
+                    System.out.println("ID: #" + person.indexOf(person1) + " : " + person1);
                 }
                 System.out.print("\nEnter #ID to Edit Contact : ");
                 id = InputUtil.getIntValue();
-                System.out.println(personList.get(id));
-                while (i == 0) {
+                System.out.println(person.get(id));
+                while (flag == 0) {
                     System.out.println("What You Want to edit...\n"
                             + "\t1: Address\n"
                             + "\t2: city\n"
@@ -176,44 +134,46 @@ public class AddressBookService implements IAddressBookService {
                         case 1:
                             System.out.print("Enter new Address : ");
                             address = InputUtil.getStringValue();
-                            personList.get(id).setAddress(address);
+                            person.get(id).setAddress(address);
                             break;
                         case 2:
                             System.out.print("Enter new City : ");
                             city = InputUtil.getStringValue();
-                            personList.get(id).setCity(city);
+                            person.get(id).setCity(city);
                             break;
                         case 3:
                             System.out.print("Enter new State : ");
                             state = InputUtil.getStringValue();
-                            personList.get(id).setState(state);
+                            person.get(id).setState(state);
                             break;
                         case 4:
                             System.out.print("Enter new Phone : ");
                             phone = InputUtil.getStringValue();
-                            personList.get(id).setPhone(phone);
+                            person.get(id).setPhone(phone);
                             break;
                         case 5:
                             System.out.print("Enter new Zip Code : ");
                             zip = InputUtil.getStringValue();
-                            personList.get(id).setZip(zip);
+                            person.get(id).setZip(zip);
                             break;
                         case 6:
-                            i = 1;
+                            flag = 1;
                             break;
                         default:
                             System.out.println("Please Enter Valid Option");
                     }
-                    System.out.println(personList.get(id));
+                    System.out.println(person.get(id));
                 }
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new AddressBookException("Entered Wrong #ID", AddressBookException.exceptionType.ENTERED_WRONG_ID);
+            throw new AddressBookException("Entered Wrong #ID",
+                    AddressBookException.exceptionType.ENTERED_WRONG_ID);
         }
+        return person;
     }
 
     /*Method to Delete Person Record*/
-    public void deleteRecord() throws AddressBookException {
+    public LinkedList<Person> deleteRecord(LinkedList<Person> personList) throws AddressBookException {
         try {
             int id;
             if (personList.isEmpty()) {
@@ -223,14 +183,17 @@ public class AddressBookService implements IAddressBookService {
                 System.out.print("\nEnter #ID to delete Contact : ");
                 id = InputUtil.getIntValue();
                 personList.remove(id);
+                WriteToCSV.writeFromDelete(personList);
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new AddressBookException("Entered Wrong #ID", AddressBookException.exceptionType.ENTERED_WRONG_ID);
+            throw new AddressBookException("Entered Wrong #ID",
+                    AddressBookException.exceptionType.ENTERED_WRONG_ID);
         }
+        return personList;
     }
 
     /*Method for Sort Menu*/
-    public void sortRecords() {
+    public void sortRecords(LinkedList<Person> personList) {
         System.out.println("Sort By...\n"
                 + "1: First Name\n"
                 + "2: City\n"
@@ -240,16 +203,16 @@ public class AddressBookService implements IAddressBookService {
         int choice = InputUtil.getIntValue();
         switch (choice) {
             case 1:
-                sortByName(personList);
+                sortData(personList, sortOptions.NAME);
                 break;
             case 2:
-                sortByCity(personList);
+                sortData(personList, sortOptions.CITY);
                 break;
             case 3:
-                sortByState(personList);
+                sortData(personList, sortOptions.STATE);
                 break;
             case 4:
-                sortByZip(personList);
+                sortData(personList, sortOptions.ZIP);
                 break;
             case 5:
                 return;
@@ -261,15 +224,16 @@ public class AddressBookService implements IAddressBookService {
     /*Method to Check Duplication of First Name
      * @Param FirstName
      */
-    public boolean checkExists(String firstName) {
-        int flag = personList.stream().anyMatch(p -> p.getFirstName().equalsIgnoreCase(firstName)) ? 1 : 0;
+    public boolean checkExists(String firstName, LinkedList<Person> person) {
+        int flag = person.stream()
+                .anyMatch(p -> p.getFirstName().equalsIgnoreCase(firstName)) ? 1 : 0;
         return flag == 1;
     }
 
     /*Method for Search Menu*/
-    public void searchInRecords() {
-        int i = 0;
-        while (i == 0) {
+    public void searchInRecords(LinkedList<Person> person) {
+        int flag = 0;
+        while (flag == 0) {
             System.out.println("1. Search By City\n" +
                     "2. Search By State\n" +
                     "3. Back\n" +
@@ -277,13 +241,13 @@ public class AddressBookService implements IAddressBookService {
             int choice = InputUtil.getIntValue();
             switch (choice) {
                 case 1:
-                    searchByCity(personList);
+                    searchByCity(person);
                     break;
                 case 2:
-                    searchByState(personList);
+                    searchByState(person);
                     break;
                 case 3:
-                    i = 1;
+                    flag = 1;
                     break;
                 default:
                     System.out.println("Please Enter Correct Option...");

@@ -34,7 +34,7 @@ public class Person {
     private String zip;
 
     /*Constructor to initialize fields*/
-    public Person(String firstName, String lastName, String address, String city, String state, String phone, String zip) {
+    public Person(String firstName, String lastName, String address, String city, String state, String zip, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -44,7 +44,6 @@ public class Person {
         this.zip = zip;
     }
 
-    /*Getter & Setter Methods*/
     public String getFirstName() {
         return firstName;
     }
@@ -57,8 +56,9 @@ public class Person {
         return phone;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    /*Getter & Setter Methods*/
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getCity() {
@@ -77,10 +77,6 @@ public class Person {
         this.state = state;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getZip() {
         return zip;
     }
@@ -89,16 +85,22 @@ public class Person {
         this.zip = zip;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return "Person{" +
-                "First Name ='" + firstName + '\'' +
-                ", Last Name ='" + lastName + '\'' +
-                ", Address ='" + address + '\'' +
-                ", City ='" + city + '\'' +
-                ", State ='" + state + '\'' +
-                ", Phone ='" + phone + '\'' +
-                ", Zip ='" + zip + '\'' +
-                '}';
+        return "\nFull Name : " + firstName + " " + lastName +
+                "\nAddress : " + address +
+                "\nCity : " + city +
+                "\nState : " + state +
+                "\nPhone : " + phone +
+                "\nZip : " + zip + "\n";
     }
+
 }
