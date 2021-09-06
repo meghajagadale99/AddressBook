@@ -1,0 +1,24 @@
+[
+  {
+    "person": {
+      "Zip": "587301",
+      "Address": "Badiger Galli",
+      "Phone": "8105215414",
+      "State": "KA",
+      "First Name": "Megha",
+      "City": "Jamkhandi",
+      "Last Name": "Pattar"
+    }
+  },
+  {
+    "person": {
+      "Zip": "5556699",
+      "Address": "PN",
+      "Phone": "5566998870",
+      "State": "MH",
+      "First Name": "Pranali",
+      "City": "Bhadrawati",
+      "Last Name": "Dakhare"
+    }
+  }
+]
