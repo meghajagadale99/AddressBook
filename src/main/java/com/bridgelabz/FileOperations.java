@@ -6,6 +6,7 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import com.opencsv.exceptions.CsvValidationException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -65,7 +66,7 @@ public class FileOperations {
         }
     }
 
-    public List<Person> getDataInList(String filePath, int fileOperations) throws IOException {
+    public List<Person> getDataInList(String filePath, int fileOperations) throws IOException, CsvValidationException {
 
         List<Person> personDetails = new LinkedList<>();
 

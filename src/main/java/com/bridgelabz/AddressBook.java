@@ -1,13 +1,14 @@
 package com.bridgelabz;
+import com.opencsv.exceptions.CsvValidationException;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 public class AddressBook {
-    public static void main(String[] args) throws AddressBookException, IOException {
+    public static void main(String[] args) throws AddressBookException, IOException, CsvValidationException {
         final String JSON_SIMPLE_FILE_PATH = "src/main/resources/JSonSimpleAddressBook.json";
-        final String OPEN_CSV_FILE_PATH = "src/main/resources/CSVAddressBook.csv";
         final String GSON_JSON_FILE_PATH = "src/main/resources/gsonJSONAddressBook.json";
-        final int jsonSampleOperation = 1, openCSVOperation = 2, gsonOperation = 3;
+        final int jsonSampleOperation = 1, gsonOperation = 2;
         int operations = 0, flag = 0;
         String filePath = null;
         List<Person> personList;
@@ -22,10 +23,6 @@ public class AddressBook {
                 operations = jsonSampleOperation;
                 break;
             case 2:
-                filePath = OPEN_CSV_FILE_PATH;
-                operations = openCSVOperation;
-                break;
-            case 3:
                 filePath = GSON_JSON_FILE_PATH;
                 operations = gsonOperation;
                 break;
