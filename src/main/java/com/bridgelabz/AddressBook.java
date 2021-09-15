@@ -15,7 +15,7 @@ public class AddressBook {
         FileOperations fileOperations = new FileOperations();
         final AddressBookService addressBookService = new AddressBookService();
 
-        System.out.println("Select Below Operations:\n1. Using JSON SAMPLE\n2. Using OPEN CSV\n3. Using GSON \n");
+        System.out.println("Select Below Operations:\n1. Using JSON SAMPLE \n2. Using GSON \n");
         int option = InputUtil.getIntValue();
         switch (option) {
             case 1:
